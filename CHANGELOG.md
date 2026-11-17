@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.2.2 — proposed maintenance release (not yet published)
+
+This release improves login-field detection while retaining the existing dynamic-login and reliability fixes.
+
+- Score likely username fields using autocomplete, field names and IDs, labels, placeholders, accessible text, and login-form context.
+- Recognize more email, phone/mobile, and username identifiers, including Persian-language login text.
+- Support passwordless first-step login pages and credential controls that are outside a form element.
+- Reduce false positives from search, newsletter, subscription, and other non-login fields.
+- Keep dynamic login-dialog detection, including re-checks when likely credential fields are revealed by ancestor visibility changes.
+- Add regression tests for explicit phone-field identifiers and Persian username placeholders on passwordless steps.
+- Keep Firefox desktop 142 minimum and the existing data-consent declaration.
+
 ## 1.2.1 — proposed maintenance release (not yet published)
 
 This release consolidates the reliability fixes and regression coverage identified so far.
