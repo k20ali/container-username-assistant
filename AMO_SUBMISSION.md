@@ -9,7 +9,7 @@ This document is a copy-ready draft for the Firefox Add-ons (AMO) submission for
 **Suggested URL slug:** container-username-assistant  
 AMO confirms URL-slug availability in its submission form; this slug is not reserved.
 
-**Version:** 1.2.1 (proposed maintenance release; not yet published)
+**Version:** 1.2.2 (proposed maintenance release; not yet published)
 
 **Summary:**
 Save a username for each website and Firefox container, then fill it on later visits. Review or delete saved rules at any time.
@@ -47,25 +47,16 @@ This is an independently maintained fork of https://github.com/tiansh/account-pe
 
 **Experimental listing flag:** Leave unchecked only if you consider the add-on ready for general use after reviewing the release checklist and AMO validator results.
 
-## Release notes for 1.2.1
+## Release notes for 1.2.2
 
-This maintenance release consolidates the reliability fixes and regression coverage identified so far.
-
-- Fix rule-removal persistence and restore in-memory state if a storage write fails.
-- Handle missing active tabs, stale tab context, deleted containers, missing container metadata, malformed saved rules, and unsupported URLs safely.
-- Detect login fields that are inserted or replaced dynamically, and detach listeners from obsolete fields.
-- Re-check login forms when relevant field attributes change or a previously hidden login dialog is revealed by changes to an ancestor's class, style, or visibility attributes.
-- Limit ancestor-attribute-triggered checks to changed elements containing likely credential fields.
-- Fill controlled username inputs using the native setter and a bubbling input event.
-- Avoid overwriting non-empty username fields and avoid refilling after deliberate user edits.
-- Support both HTTP and HTTPS login pages.
-- Add automated regression tests for the identified dynamic-field and login-dialog behaviors.
-- Retain the Firefox desktop 142 minimum and existing data-consent declaration.
+Improved username-field detection on multi-step sign-in pages, including passwordless first steps. Added better recognition of email, phone/mobile, and Persian-language login fields, while reducing false positives from search and newsletter fields. Preserved dynamic login-dialog detection and added regression tests for phone-number and Persian username fields.
 
 ## Reviewer notes
 
 This is an unminified, readable WebExtension; there is no bundling or transpilation step. Source and test instructions are in the public repository's master branch.
 
-To test: install the package in Firefox desktop 142 or newer; ensure container tabs are available; open an HTTP/HTTPS page with a plain login form inside a container; type a username; use the extension icon to save a rule; reload the page and verify the username is filled; verify a non-empty username is not overwritten; remove the rule in the options page and verify it stays removed. No test credentials are needed.
+This update improves login-field heuristics and retains the existing dynamic login-dialog handling. Regression tests cover explicitly identified phone-number fields and Persian username placeholders on passwordless login steps. The Gecko ID and permissions remain unchanged. The minimum Firefox desktop version remains 142.0. No test credentials are needed.
+
+To test: install the package in Firefox desktop 142 or newer; ensure container tabs are available; open an HTTP/HTTPS page with a plain login form inside a container; type a username; use the extension icon to save a rule; reload the page and verify the username is filled; verify a non-empty username is not overwritten; remove the rule in the options page and verify it stays removed.
 
 The maintainer has manually tested the dynamic login-dialog behavior. The exact Firefox build and full per-scenario manual-test matrix have not been recorded in the repository, so reviewers should still perform the steps above.
